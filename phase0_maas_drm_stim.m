@@ -7,6 +7,7 @@
 % manually go into the directory msdoss/data and remove the file created.
 % Subject number 666 can be used for piloting, which allows you to
 % overwrite the file created.
+% This is the most recent version from 23/11/15
 
 %% Prelim
 clc; fclose('all'); clear; close all; rng('default'); rng('shuffle');

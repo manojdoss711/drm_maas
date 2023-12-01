@@ -103,7 +103,7 @@ for idata = 1:num_drug % for encstim
     % pseudorandomization (no more than two repeating lists of a given valence)
     unique_drm = unique_drm(randperm(num_drm_list),:); % randomize here because unique sorts in alphabetical order
     pseudo_key = [];
-    for irand = 1:9 % 9 lists per valence other than neutral
+    for irand = 1:9 % 9 lists per valence
         x = randperm(num_emo);
         pseudo_key = [pseudo_key; x'];
     end

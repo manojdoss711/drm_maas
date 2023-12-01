@@ -105,8 +105,8 @@ end
 if ~speed_mode
     fix_duration = 2.000;
     word_duration = 2.000;
-    next_list_duration = 3.000;
-    jitter = repmat(1.000,repmat(num_trial,1)); % not an actual jitter but rather 1s ISI
+    next_list_duration = 2.000;
+    jitter = repmat(.500,repmat(num_trial,1)); % not an actual jitter but rather 1s ISI
 else % speed mode
     fix_duration = 0.010;
     word_duration = 0.010;
@@ -127,7 +127,7 @@ grey = [127 127 127];   % instruction/fixation background
 % Text
 instructions = [ ...
     'During this task, you will see lists of words.\n' ...
-    'For each word, you areto make a pleasantness judgment\n' ...
+    'For each word, you are to make a pleasantness judgment\n' ...
     'WHILE THE WORD IS STILL ON THE SCREEN.\n\n' ...
     'A = unpleasant\n' ...
     'S = slightly unpleasant\n' ...
@@ -141,6 +141,8 @@ instructions = [ ...
 next_list = 'NEXT LIST';
 
 fixation = '+';
+
+end_task = 'You are done with this phase.';
 
 % Buttons
 enter = KbName('return');
@@ -252,6 +254,11 @@ try
             encstim2 = encstim;
         end
         save(data_file,'encstim1','encstim2','retstim1','retstim2');
+
+        Screen('TextSize', w, instruc_font_size);
+        DrawFormattedText(w, end_task, 'center', 'center', black);
+        [VBLTimestamp,next_list_onset] = Screen('Flip', w);
+        WaitSecs('UntilTime',next_list_onset+fix_duration);
         
     end
     

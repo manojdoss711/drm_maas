@@ -104,7 +104,7 @@ end
 %% Create Variables %%
 
 % Durations
-min_iti = 1; max_iti = 3; num_points = (max_iti - min_iti)*60+1; % change these dependent on refresh rate of monitor (60 Hz in this case)
+min_iti = .500; max_iti = 1.500; num_points = (max_iti - min_iti)*60+1; % change these dependent on refresh rate of monitor (60 Hz in this case)
 if ~speed_mode
     fix_duration = 2.000;
     word_duration = 1.000;
@@ -158,6 +158,8 @@ resp_options = 'Z = yes                      M = no';
 conf_question = 'How confident are you?';
 conf_options1 = '1                       2                       3                    4';
 conf_options2 = 'guessing          uncertain          confident          certain';
+
+end_task = 'You are done with this phase.';
 
 % Buttons
 enter = KbName('return');
@@ -274,6 +276,11 @@ try
         save(data_file,'encstim1','encstim2','retstim1','retstim2');
         
         WaitSecs('UntilTime',retstim{itrial,idx_fix_onset}+jitter(itrial));
+
+        Screen('TextSize', w, instruc_font_size);
+        DrawFormattedText(w, end_task, 'center', 'center', black);
+        [VBLTimestamp,next_list_onset] = Screen('Flip', w);
+        WaitSecs('UntilTime',next_list_onset+fix_duration);
         
     end    % Trial loop
     
